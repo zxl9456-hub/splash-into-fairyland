@@ -1,0 +1,15 @@
+{
+  "provider": "Suno",
+  "created": "2026-11-03",
+  "sources": {
+    "bgm": "https://suno.com/song/55c3b653-4aac-43ac-a759-e4b48b29fbfc",
+    "seed": "https://suno.com/song/8ac0ffc9-a030-4928-b51c-47a92a8e85c1",
+    "stream": "https://suno.com/song/ca829b8d-3db7-4969-9c2b-26982c58ce7f",
+    "magic": "https://suno.com/song/88028cd4-335a-4540-b106-ed289ff3d51f",
+    "warning": "https://suno.com/song/c8092dd1-cce1-4f46-b4ad-f28394942ed8",
+    "hit": "https://suno.com/song/a37c1dbb-6306-42d8-9fc2-27064378da0d",
+    "complete": "https://suno.com/song/ab6b2c33-845b-4079-b2f5-db6e141e0991"
+  },
+  "processing": "BGM: four 25-second excerpts of one original 100-second recording, 1.5-second loop boundary crossfade, 64kbps MP3, -22 LUFS. Sound effects: mono 56kbps, -19 LUFS, stream -27 LUFS. All original recordings retained in outputs/riverlight-continuous/suno-originals. One-shot effects trimmed for leading silence, limited to 1–4.5 seconds with a short fade out.",
+  "review": "All ten audio files decoded in real browser, context running; pause, mute, resume and seasonal gain crossfades verified. Subjective listening review remains with user."
+}

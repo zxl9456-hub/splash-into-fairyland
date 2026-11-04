@@ -1,0 +1,6 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {Journey} from '../core.mjs';
+const course={obstacles:[],seeds:[],encounters:[{kind:'plant',side:1,z:45,chapter:0}]};
+const tick=(g,s,input={})=>{for(let i=0;i<s*60;i++)g.step(1/60,input);};
+test('encounters telegraph before an attack and pause freezes their clock',()=>{const g=new Journey(course);g.start();tick(g,2);assert.equal(g.encounters[0].phase,'warning');const age=g.encounters[0].age;g.pause();tick(g,5);assert.equal(g.encounters[0].age,age);g.pause();tick(g,2);assert.equal(g.encounters[0].phase,'attack');});
+test('dodging pays once and reset restores every encounter',()=>{const g=new Journey(course);g.start();tick(g,8,{steer:-1});assert.equal(g.health,3);assert.equal(g.dodges,1);assert.equal(g.seeds,5);tick(g,6);assert.equal(g.seeds,5);g.reset();assert.equal(g.dodges,0);assert.equal(g.encounters[0].phase,'dormant');});
+test('attack hit is once per monster and chapter trial also costs lives',()=>{const g=new Journey(course);g.start();tick(g,4.6,{steer:1});const e=g.encounters[0];g.x=e.x;g.z=e.z;g.step(1/60);assert.equal(g.health,2);for(let i=0;i<5;i++){g.x=e.x;g.z=e.z;g.step(.05);}assert.equal(g.health,2);g.reset({mode:'explore'});g.start();tick(g,4.6,{steer:1});g.x=g.encounters[0].x;g.z=g.encounters[0].z;g.step(1/60);assert.equal(g.health,2);});

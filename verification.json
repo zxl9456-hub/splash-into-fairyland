@@ -1,0 +1,39 @@
+{
+  "files": 76,
+  "totalBytes": 69705129,
+  "missingResources": [],
+  "models": [
+    {
+      "path": "art-models/kayaker-paddling.glb",
+      "bytes": 16044220,
+      "triangles": 150000,
+      "animations": [
+        "Paddle_Cycle"
+      ],
+      "sha256": "aac5603c90e1c736886d7164cf32879030c02e22752ed04eae07ece016854a47"
+    },
+    {
+      "path": "assets/models/bluebell.glb",
+      "bytes": 8341272,
+      "triangles": 22000,
+      "animations": [],
+      "sha256": "149c77eb8d067331bc367e80cce90e0531980e81f12a768b6facbe5585aa5835"
+    },
+    {
+      "path": "assets/models/river-dragon.glb",
+      "bytes": 16367424,
+      "triangles": 101500,
+      "animations": [],
+      "sha256": "0d0955c9cb0fd59c29abddf44b1b74d87edacac4b7c435f95fc41c1a5c520713"
+    },
+    {
+      "path": "assets/models/teacup.glb",
+      "bytes": 9672104,
+      "triangles": 60000,
+      "animations": [],
+      "sha256": "270ad08f2a532e3937e7a42f1621c4678fc4cafb13f6899ed499ed5bc802e54b"
+    }
+  ],
+  "defaultQuality": "ultra",
+  "paths": "relative; supports repository subpaths"
+}

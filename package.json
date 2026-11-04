@@ -1,0 +1,15 @@
+{
+  "name": "splash-into-fairyland",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "噗通！掉进童话 · 完整 3D 四季漂流",
+  "scripts": {
+    "test": "node --test game/tests/*.test.mjs",
+    "build": "node scripts/build.mjs",
+    "verify": "node scripts/verify.mjs",
+    "dev": "node scripts/serve.mjs",
+    "preview": "node scripts/serve.mjs dist"
+  },
+  "engines": {"node": ">=22"}
+}
