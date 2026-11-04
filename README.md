@@ -2,6 +2,8 @@
 
 划着橙色小舟，穿越巨大花园里的春、夏、秋、冬。完整 Three.js 实时 3D 版本，面向 GitHub Pages 与桌面浏览器。
 
+[在线游玩](https://zxl9456-hub.github.io/splash-into-fairyland/) · [部署状态](https://github.com/zxl9456-hub/splash-into-fairyland/actions)
+
 本版从保留的高精度工程恢复，不采用小红书包里的简化角色、小贴图或 Canvas 2D 兼容画面。默认「极致」画质，可在菜单中切换「精致／均衡」。三个档位都使用完整模型。
 
 ## 开始游玩
@@ -47,7 +49,7 @@ node scripts/serve.mjs dist
 
 参考：[GitHub Pages 官方自定义工作流说明](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
 
-仓库尚未配置远程地址，本地包不代表已经上线。部署到哪个仓库由项目所有者指定。
+本仓库为 `zxl9456-hub/splash-into-fairyland`，Pages 使用 GitHub Actions 自动发布。更新 `main` 分支后，在 Actions 页面查看部署结果。
 
 ## 恢复的画质
 
@@ -62,6 +64,16 @@ node scripts/serve.mjs dist
 优先使用 WebGPU；不支持时 Three.js 使用 WebGL2，仍为同一套 3D 场景。WebGL2 使用较轻的水面档位和 GTAO；WebGPU 当前跳过已有兼容问题的 GTAO。极致画质的实际帧率取决于设备与窗口分辨率，可用菜单中的精致／均衡档位降低渲染负荷。
 
 附件概念图是美术目标，不是本项目的实机截图。模型造型、植被密度、瀑布和电影级光照仍有可见差距；本版不能标为 100% 复刻。实机截图与验证记录放在交付包的 `evidence` 中。
+
+## 四季实机截图
+
+以下是实时 3D 游戏画面，非概念图。
+
+| 春 | 夏 |
+| --- | --- |
+| ![春季](evidence/spring.png) | ![夏季](evidence/summer.png) |
+| 秋 | 冬 |
+| ![秋季](evidence/autumn.png) | ![冬季](evidence/winter.png) |
 
 ## 资源与许可证
 
