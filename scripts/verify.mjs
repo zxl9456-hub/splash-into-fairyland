@@ -28,5 +28,5 @@ for(const file of files.filter(f=>f.path.endsWith('.glb'))){
  const triangles=gltf.meshes.reduce((n,m)=>n+m.primitives.reduce((n,p)=>n+(p.indices!==undefined?gltf.accessors[p.indices].count/3:gltf.accessors[p.attributes.POSITION].count/3),0),0);
  models.push({...file,triangles,animations:(gltf.animations||[]).map(a=>a.name),sha256:createHash('sha256').update(b).digest('hex')});
 }
-const result={files:files.length,totalBytes:files.reduce((n,f)=>n+f.bytes,0),missingResources:missing,models,defaultQuality:'ultra',paths:'relative; supports repository subpaths'};
+const result={files:files.length,totalBytes:files.reduce((n,f)=>n+f.bytes,0),missingResources:missing,models,defaultQuality:'auto',paths:'relative; supports repository subpaths'};
 await writeFile(path.join(root,'verification.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));

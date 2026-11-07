@@ -84,8 +84,12 @@ function mushroomStemGeometry(variant=0){
  for(let i=0;i<=N;i++){const t=i/N,r=.235*(1+.35*Math.pow(1-t,4)-.13*Math.sin(t*Math.PI)+.18*Math.pow(t,5));for(let j=0;j<=M;j++){const a=j/M*TAU,rr=r*(1+Math.sin(a*7+t*13)*.035);p.push(Math.cos(a)*rr+Math.sin(t*4+variant)*.065,t*2.17,Math.sin(a)*rr+Math.sin(t*3+variant)*.035);uv.push(j/M,t);}}
  for(let i=0;i<N;i++)for(let j=0;j<M;j++){const a=i*(M+1)+j;idx.push(a,a+M+1,a+1,a+1,a+M+1,a+M+2);}return surfaceGeometry(p,uv,idx);
 }
-function merged(group){group.updateMatrixWorld(true);const buckets=new Map();group.traverse(o=>{if(!o.isMesh)return;const a=buckets.get(o.material)||[];const g=o.geometry.clone().applyMatrix4(o.matrixWorld);a.push(g);buckets.set(o.material,a);});const out=new T.Group();for(const [m,gs] of buckets){const g=mergeGeometries(gs,false);if(g)out.add(mesh(g,m));gs.forEach(g=>g.dispose());}return out;}
-function stoneGeometry(){let g=new T.IcosahedronGeometry(1,8);g.deleteAttribute('normal');g=mergeVertices(g,1e-4);const p=g.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),k=1+(noise(x*3+3+y*1.5,z*3+4)-.5)*.38+Math.sin(y*14+x*4)*.028;p.setXYZ(i,x*k*1.27,(y*k+1)*.68+noise(x*8+3,z*8+4)*.055,z*k*1.08);}g.computeVertexNormals();return g;}
+function merged(group){
+ group.updateMatrixWorld(true);const buckets=new Map();
+ group.traverse(o=>{if(!o.isMesh)return;if(!buckets.has(o.material))buckets.set(o.material,{high:[],low:[],hasLOD:false});const b=buckets.get(o.material);b.high.push(o.geometry.clone().applyMatrix4(o.matrixWorld));b.low.push((o.geometry.lodGeometry||o.geometry).clone().applyMatrix4(o.matrixWorld));b.hasLOD ||= !!o.geometry.lodGeometry;});
+ const out=new T.Group();for(const [m,b] of buckets){const g=mergeGeometries(b.high,false);if(b.hasLOD)g.lodGeometry=mergeGeometries(b.low,false);if(g)out.add(mesh(g,m));[...b.high,...b.low].forEach(g=>g.dispose());}return out;
+}
+function stoneGeometry(detail=8){let g=new T.IcosahedronGeometry(1,detail);g.deleteAttribute('normal');g=mergeVertices(g,1e-4);const p=g.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),k=1+(noise(x*3+3+y*1.5,z*3+4)-.5)*.38+Math.sin(y*14+x*4)*.028;p.setXYZ(i,x*k*1.27,(y*k+1)*.68+noise(x*8+3,z*8+4)*.055,z*k*1.08);}g.computeVertexNormals();return g;}
 function mossGeometry(g){const src=g.index?g.toNonIndexed():g;const p=src.attributes.position,u=src.attributes.uv,nn=src.attributes.normal,pp=[],uv=[],normal=[];for(let i=0;i<p.count;i+=3){const y=(p.getY(i)+p.getY(i+1)+p.getY(i+2))/3,x=p.getX(i),z=p.getZ(i);if(y<.68+(noise(x*3,z*3)-.5)*.27)continue;for(let j=0;j<3;j++){pp.push(p.getX(i+j)*1.012,p.getY(i+j)+.045+noise(p.getX(i+j)*9,p.getZ(i+j)*9)*.07,p.getZ(i+j)*1.012);uv.push(u.getX(i+j)*2,u.getY(i+j)*2);normal.push(nn.getX(i+j),nn.getY(i+j),nn.getZ(i+j));}}const m=new T.BufferGeometry();m.setAttribute('position',new T.Float32BufferAttribute(pp,3));m.setAttribute('uv',new T.Float32BufferAttribute(uv,2));m.setAttribute('normal',new T.Float32BufferAttribute(normal,3));return m;}
 
 export function createBotanicalAssets(){
@@ -115,8 +119,12 @@ export function createBotanicalAssets(){
  materials.stone.map=scan('mossy_rock-diff',true);materials.stone.normalMap=scan('mossy_rock-nor_gl');materials.stone.normalScale=new T.Vector2(.8,.8);materials.stone.bumpMap=null;materials.stone.roughness=.58;materials.stone.clearcoat=.22;
  materials.bark.map=scan('bark_brown_02-diff',true,Math.PI/2);materials.bark.normalMap=scan('bark_brown_02-nor_gl',false,Math.PI/2);materials.bark.bumpMap=null;materials.bark.normalScale=new T.Vector2(1,1);materials.bark.color.setHex(0xcdbb96);
  materials.moss.normalMap=scan('mossy_rock-nor_gl');materials.moss.normalMap.repeat.set(2,2);materials.moss.normalScale=new T.Vector2(.8,.8);materials.moss.bumpScale=.025;materials.moss.color.setHex(0xc9d19b);
- geometries.moss=mossGeometry(geometries.stone);
+ geometries.stone.lodGeometry=stoneGeometry(3);
+ geometries.petal.lodGeometry=leafGeometry(6,3,true);
+ geometries.smallLeaf.lodGeometry=leafGeometry(5,2);
+ geometries.moss=mossGeometry(geometries.stone);geometries.moss.lodGeometry=mossGeometry(geometries.stone.lodGeometry);
  geometries.leafVariants=[geometries.leaf,leafGeometry(22,10,false,1),leafGeometry(22,10,false,2)];
+ geometries.leafVariants.forEach((g,i)=>g.lodGeometry=leafGeometry(8,4,false,i));
  let leafIndex=0,mushroomIndex=0;
  const leaf=(scale=1)=>{const g=new T.Group();g.add(mesh(geometries.leafVariants[leafIndex++%3],materials.leaf));return groupScale(g,scale);};
  // Fine geometric moss tips break the smooth shell silhouette at close range.

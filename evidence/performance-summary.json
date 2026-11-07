@@ -1,0 +1,74 @@
+[
+  {
+    "version": "before",
+    "season": 0,
+    "samples": 63,
+    "fpsMedian": 44.0,
+    "p95FrameMsMedian": 25.5,
+    "trianglesMedian": 56981887,
+    "drawCallsMedian": 1186.0
+  },
+  {
+    "version": "before",
+    "season": 1,
+    "samples": 26,
+    "fpsMedian": 45.5,
+    "p95FrameMsMedian": 25.1,
+    "trianglesMedian": 49048926,
+    "drawCallsMedian": 1650.0
+  },
+  {
+    "version": "before",
+    "season": 2,
+    "samples": 75,
+    "fpsMedian": 46.0,
+    "p95FrameMsMedian": 33.3,
+    "trianglesMedian": 42412622,
+    "drawCallsMedian": 1748.0
+  },
+  {
+    "version": "before",
+    "season": 3,
+    "samples": 63,
+    "fpsMedian": 61.0,
+    "p95FrameMsMedian": 25.3,
+    "trianglesMedian": 23498544,
+    "drawCallsMedian": 1549.0
+  },
+  {
+    "version": "after",
+    "season": 0,
+    "samples": 23,
+    "fpsMedian": 60.0,
+    "p95FrameMsMedian": 25.1,
+    "trianglesMedian": 18177139,
+    "drawCallsMedian": 959.0
+  },
+  {
+    "version": "after",
+    "season": 1,
+    "samples": 64,
+    "fpsMedian": 44.0,
+    "p95FrameMsMedian": 33.4,
+    "trianglesMedian": 14243294,
+    "drawCallsMedian": 1419.0
+  },
+  {
+    "version": "after",
+    "season": 2,
+    "samples": 37,
+    "fpsMedian": 41.0,
+    "p95FrameMsMedian": 33.5,
+    "trianglesMedian": 13867358,
+    "drawCallsMedian": 1530.0
+  },
+  {
+    "version": "after",
+    "season": 3,
+    "samples": 30,
+    "fpsMedian": 67.0,
+    "p95FrameMsMedian": 25.1,
+    "trianglesMedian": 13854523,
+    "drawCallsMedian": 1294.0
+  }
+]
